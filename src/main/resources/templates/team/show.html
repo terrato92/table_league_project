@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Show Recipe</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <script src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous" th:src="@{/webjars/bootstrap/3.3.7-1/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <!--/*@thymesVar id="team" type="terrato.springframework.domain.Team"*/-->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="pannel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h1 class="panel-title" th:text="${team.getName()}"></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p th:text="'League: ' + ${team.getLeague().getName()}"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p th:text="'Nationality: ' + ${team.getNationality().getNationality()}"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <p th:text="'Level team: ' + ${team.getPower().name()}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-11 ">
+                            <h1 class="panel-title">Players:</h1>
+                        </div>
+                        <div class="col-md-1">
+                            <a class="btn btn-default" href="#"
+                               th:href="@{'/team/' + ${team.getId()} + '/player/new'}"
+                               role="button">New</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover ">
+                                <thead class="thead-inverse">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Players</th>
+                                    <th>View</th>
+                                    <th>Update</th>
+                                    <th>Delete</th>
+                                </tr>
+                                </thead>
+                                <!--/*@thymesVar id="team" type="terrato.springframework.domain.Player"*/-->
+                                <tr th:each="player : ${players}">
+
+                                    <td th:text="${player.getId()}">334</td>
+                                    <td th:text="${player.getName()}"></td>
+                                    <td><a href="#"
+                                           th:href="@{'/player/' + ${player.getId()} + '/show'}">View</a>
+                                    </td>
+                                    <td><a href="#"
+                                           th:href="@{'/player/' + ${player.getId()} + '/update'}">Update</a>
+                                    </td>
+                                    <td><a href="#"
+                                           th:href="@{'/player/' + ${player.getId()} + '/delete'}">Delete</a>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
