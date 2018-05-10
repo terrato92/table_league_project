@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import terrato.springframework.converter.LeagueDtoToLeagueConverter;
+import terrato.springframework.converter.LeagueToLeagueDtoConvert;
 import terrato.springframework.domain.League;
 import terrato.springframework.repository.LeagueRepository;
 import terrato.springframework.service.LeagueService;
@@ -25,6 +27,9 @@ public class LeagueDtoServiceImplTest {
     LeagueRepository leagueRepository;
 
     LeagueService leagueService;
+    private LeagueDtoToLeagueConverter leagueDtoToLeagueConverter;
+    private LeagueToLeagueDtoConvert leagueToLeagueDtoConvert;
+    private DataLoadImpl dataLoad;
 
 
     @Before

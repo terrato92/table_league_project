@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 import terrato.springframework.domain.Difficulty;
 
 @Data
@@ -16,8 +17,11 @@ import terrato.springframework.domain.Difficulty;
 })
 public class LeagueDto {
 
+
     @JsonProperty("id")
     private String id;
+
+    @NotEmpty
     @JsonProperty("name")
     private String name;
     @JsonProperty("region")

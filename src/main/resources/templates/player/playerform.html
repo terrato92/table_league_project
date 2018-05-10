@@ -63,7 +63,7 @@
                             <div class="row">
                                 <div class="col-md-3 form-group">
                                     <label>Nationality:</label>
-                                    <select class="form-control" th:field="*{region}">
+                                    <select class="form-control" th:field="*{nationality}">
                                         <option th:each="region : ${nationalities}"
                                                 th:value="${region.getId()}"
                                                 th:text="${region.getNationality()}">

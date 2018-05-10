@@ -47,16 +47,15 @@ public class LeagueController {
     }
 
 
-    @GetMapping
-    @RequestMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String getAllLeaguesJSON(Model model){
+
+    @GetMapping(value = "/upload", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getAllLeaguesJSON(Model model) {
         model.addAttribute("leagues", leagueService.getLeaguesDto());
 
         return "index";
     }
 
-    @GetMapping
-    @RequestMapping({"", "/", "/index"})
+    @GetMapping({"", "/", "/index"})
     public String showLeagues(Model model) {
 
         model.addAttribute("leagues", leagueService.getLeagues());
@@ -64,8 +63,7 @@ public class LeagueController {
         return "index";
     }
 
-    @GetMapping
-    @RequestMapping("league/{id}/show")
+    @GetMapping("league/{id}/show")
     public String showLeagueById(@PathVariable String id, Model model) {
         model.addAttribute("league", leagueService.getLeagueById(Long.valueOf(id)));
 
@@ -74,8 +72,7 @@ public class LeagueController {
         return "league/show";
     }
 
-    @PostMapping
-    @RequestMapping("league/new")
+    @GetMapping("league/new")
     public String newLeague(Model model) {
         model.addAttribute("league", new LeagueDto());
 
@@ -84,26 +81,25 @@ public class LeagueController {
         return "league/leagueform";
     }
 
-    @PostMapping
-    @RequestMapping("league/{id}/delete")
+    @GetMapping("league/{id}/delete")
     public String deleteLeague(@PathVariable String id) {
         leagueService.deleteLeagueById(Long.valueOf(id));
         return "redirect:/";
     }
 
-    @PutMapping
-    @RequestMapping("league/{leagueId}/update")
-    public String updateLeague(@PathVariable String leagueId, Model model) {
-        model.addAttribute("league", leagueService.getLeagueDtoById(Long.valueOf(leagueId)));
+//    @PutMapping
+//    @RequestMapping("league/{leagueId}/update")
+//    public String updateLeague(@PathVariable String leagueId, Model model) {
+//        model.addAttribute("league", leagueService.getLeagueDtoById(Long.valueOf(leagueId)));
+//
+//        model.addAttribute("nationalities", nationalityService.listAllNationalities());
+//
+//        return "league/leagueform";
+//    }
 
-        model.addAttribute("nationalities", nationalityService.listAllNationalities());
-
-        return "league/leagueform";
-    }
-
-    @PostMapping
-    @RequestMapping("league")
-    public String saveOrUpdateLeagueDto(@Valid @ModelAttribute LeagueDto leagueDto, BindingResult bindingResult, Model model) {
+    @PostMapping("league")
+    public String saveOrUpdateLeagueDto(@Valid @ModelAttribute("league") LeagueDto leagueDto, BindingResult bindingResult,
+                                        Model model) {
 
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> log.debug(objectError.toString()));
@@ -112,9 +108,9 @@ public class LeagueController {
             return "league/leagueform";
         }
 
-        leagueService.saveLeagueDto(leagueDto);
+        LeagueDto leagueDto1 = leagueService.saveLeagueDto(leagueDto);
 
-        return "redirect:/";
+        return "redirect:/league/" +leagueDto1.getId() + "/show";
 
     }
 

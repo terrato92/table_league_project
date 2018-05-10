@@ -7,11 +7,13 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import terrato.springframework.api.dto.LeagueDto;
 import terrato.springframework.domain.League;
 import terrato.springframework.exception.NotFoundException;
 import terrato.springframework.service.LeagueService;
 import terrato.springframework.service.NationalityService;
 import terrato.springframework.service.TeamService;
+import terrato.springframework.service.implementation.DataLoadImpl;
 
 import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -36,6 +38,7 @@ public class LeagueDtoControllerTest {
     LeagueController leagueController;
 
     MockMvc mockMvc;
+    private DataLoadImpl loadData;
 
     @Before
     public void setUp() throws Exception {
@@ -89,7 +92,7 @@ public class LeagueDtoControllerTest {
     @Test
     public void saveOrUpdateLeague() throws Exception {
 
-        when(leagueService.saveLeague(any(League.class))).thenReturn(new League());
+        when(leagueService.saveLeagueDto(any(LeagueDto.class))).thenReturn(new LeagueDto());
 
         mockMvc.perform(post("/league").contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id","")

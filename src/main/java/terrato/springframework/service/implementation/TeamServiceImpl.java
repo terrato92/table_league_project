@@ -101,7 +101,6 @@ public class TeamServiceImpl implements TeamService {
 
                 source.setLeague(league);
                 source.setNationality(league.getNationality());
-//                teamOptional.get().setBalanceOfMatches(new BalanceOfMatches());
                 teamRepository.save(source);
 
                 return source;
