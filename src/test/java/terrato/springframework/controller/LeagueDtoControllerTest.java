@@ -91,14 +91,16 @@ public class LeagueDtoControllerTest {
 
     @Test
     public void saveOrUpdateLeague() throws Exception {
+        LeagueDto league = new LeagueDto();
+        league.setId("2");
 
-        when(leagueService.saveLeagueDto(any(LeagueDto.class))).thenReturn(new LeagueDto());
+        when(leagueService.saveLeagueDto(any())).thenReturn(league);
 
         mockMvc.perform(post("/league").contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("id","")
                 .param("name", "pr"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/"));
+                .andExpect(view().name("redirect:/league/2/show"));
 
     }
 
